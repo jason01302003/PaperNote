@@ -34,3 +34,6 @@
 ## [2026-11-08] fix | 樣式：手機寬度的表格與來源標記溢出、頁首換行
 - 更新：assets/css/style.css
 - 驗證：14 個頁面在 375px 寬度下無橫向捲軸
+
+## [2026-11-08] update | repo 名稱改為 PaperNote
+- 更新：data/site.js（GitHub 連結）、README.md（網站網址）

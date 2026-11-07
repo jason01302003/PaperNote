@@ -2,7 +2,7 @@
 
 碩士論文「雙平行機環境下的雙代理人資源分配排程」的參考文獻整理網站。每篇論文一頁、依固定欄位整理，首頁提供跨論文比較表與研究構面覆蓋表。
 
-- 網站：https://jason01302003.github.io/thesis-literature-library/
+- 網站：https://jason01302003.github.io/PaperNote/
 - 規則文件（給 AI 讀）：[CLAUDE.md](CLAUDE.md)
 
 ## 這個專案的重點
