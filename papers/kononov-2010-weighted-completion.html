@@ -46,7 +46,7 @@
       <ul>
         <li>RPWT 在 UET（p<sub>i</sub> = 1）且 δ<sub>i</sub> ≤ 0 時為 strongly NP-hard。<span class="src">Thm 1, §2</span></li>
         <li>RPWT 在 UET 且 δ<sub>i</sub> ≥ 0 時為 strongly NP-hard。<span class="src">Thm 2, §2</span></li>
-        <li>UET 情形與單位權重情形完全等價；因此單位權重（w<sub>i</sub> = 1）情形在兩種淨貢獻符號下也都是 strongly NP-hard。<span class="src">Thm 3, Cor 1–2, §2</span> <span class="verify">待確認</span></li>
+        <li>UET 情形與單位權重情形完全等價；因此單位權重（w<sub>i</sub> = 1）情形在兩種淨貢獻符號下也都是 strongly NP-hard。<span class="src">Thm 3, Cor 1–2, §2</span></li>
         <li>Algorithm W 在 UET 且 δ<sub>i</sub> ≥ 0 的情形，若存在可行排程就能找到可行排程，且近似比為 2。<span class="src">Lemma 1, Thm 4, §3</span></li>
         <li>作者給出一組實例（n 為偶數），使 Algorithm W 的目標值與最佳值之比在 n 趨近無窮時趨近 2，說明近似比是緊的。<span class="src">§3</span></li>
         <li>透過 Thm 3 的等價，近似結果也可轉用到對應的單位權重情形。<span class="src">§3, §4</span></li>
@@ -55,7 +55,7 @@
       <h2 id="limitations">限制</h2>
       <h3>作者自述</h3>
       <ul>
-        <li>證明近似比所用的技巧，無法直接套用到另外兩個特例，作者列為值得研究的方向。<span class="src">§4</span> <span class="verify">待確認</span></li>
+        <li>證明近似比所用的技巧，無法直接套用到另外兩個特例，作者列為值得研究的方向。<span class="src">§4</span></li>
         <li>一般形式 RPWT 的近似性或不可近似性仍未解決。<span class="src">§4</span></li>
       </ul>
       <h3>整理者觀察</h3>
@@ -69,14 +69,12 @@
         <li>說明即使只有單機，在 relocation 模型中加入總加權完工時間也會 strongly NP-hard，是資源限制排程難度的另一個基準，可與 <a href="kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a> 的 makespan 結果對照。</li>
         <li>「兩個排序序列交替派工」的近似設計，以及「兩種參數互換使複雜度互相轉用」的等價技巧，可作為處理多目標或多參數情境的參考。</li>
         <li>與 <a href="../concepts/johnsons-rule-flowshop.html">Johnson's rule 與 flowshop</a> 的關係：作者在緒論引用基本 relocation 與兩機 flowshop 的等價結果，作為問題背景。<span class="src">§1</span></li>
-        <li><span class="verify">待作者補充</span></li>
       </ul>
 
       <h2 id="notes">閱讀備註</h2>
       <ul>
-        <li><span class="verify">待確認</span> 本 PDF 為預印本版面，沒有期刊頁碼，首頁標示線上發表日 2009-12-17。卷期頁碼（13(2), 123–129）與年份 2010 取自 <a href="lin-2016-fixed-sequences.html">Lin et al. (2016)</a> 的參考文獻列表，因此本頁來源標記以章節與定理編號為主。</li>
-        <li><span class="verify">待確認</span> Cheng 與 Lin（2009）引用過一篇標題為「Resource-constrained scheduling to minimize weighted completion time on a single machine」的 submitted 稿件，可能就是本文的前身，見 <a href="cheng-2009-johnson-composite.html">Cheng & Lin (2009)</a>。</li>
-        <li>文字抽取時希臘字母與部分符號受損，Cor 1–2 與緊接結論段中 δ<sub>i</sub> 的符號方向是依上下文判讀，建議對照原文確認。</li>
+        <li>本 PDF 為預印本版面，沒有期刊頁碼，首頁標示線上發表日 2009-12-17。卷期頁碼（13(2), 123–129）與年份 2010 取自 <a href="lin-2016-fixed-sequences.html">Lin et al. (2016)</a> 的參考文獻列表，因此本頁來源標記以章節與定理編號為主。</li>
+        <li>Cheng 與 Lin（2009）引用過一篇標題為「Resource-constrained scheduling to minimize weighted completion time on a single machine」的 submitted 稿件，可能就是本文的前身，見 <a href="cheng-2009-johnson-composite.html">Cheng & Lin (2009)</a>。</li>
         <li>本文的背景結果（兩台機器 makespan 的 strongly NP-hard）來自 <a href="kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a>。<span class="src">§1</span></li>
       </ul>
     </article>

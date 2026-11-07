@@ -267,6 +267,8 @@ def check_pages(kind, registry, sections, extra_scripts):
             if f'src="{script}"' not in raw:
                 err(rel, f'缺少 <script src="{script}">')
 
+        if meta.get("status") == "已確認" and page.classes.count("verify"):
+            err(rel, "status 為已確認，但頁面仍有「待確認」標記（請先處理或改回初整理）")
         if meta.get("status") != "待讀":
             if "TODO" in raw:
                 err(rel, "status 不是待讀，但頁面仍有 TODO")

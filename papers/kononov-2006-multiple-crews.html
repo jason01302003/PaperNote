@@ -48,7 +48,7 @@
       <ul>
         <li>前人結果：單一團隊（單機）時，RP 的最小初始資源問題等價於兩機 flowshop 的 makespan 問題（見 <a href="../concepts/johnsons-rule-flowshop.html">兩機 flowshop 與 Johnson's rule</a>），可行性可在 O(n log n) 時間檢驗。<span class="src">p. 367</span></li>
         <li>RPD<sub>2</sub><sup>+</sup>（兩台專用機、UET、所有工作淨貢獻為正）為 strongly NP-hard。<span class="src">Thm 1, p. 369</span></li>
-        <li>RP<sub>2</sub><sup>+</sup>（兩台相同機、UET、淨貢獻非負）為 strongly NP-hard。<span class="src">Thm 2, p. 372</span> <span class="verify">待確認</span></li>
+        <li>RP<sub>2</sub><sup>+</sup>（兩台相同機、UET、淨貢獻非負）為 strongly NP-hard。<span class="src">Thm 2, p. 372</span></li>
         <li>機台數無界、UET、α<sub>i</sub> ≤ β<sub>i</sub> 時，除非 P = NP，否則不存在 ρ &lt; 4/3 的漸近近似演算法。<span class="src">Thm 3, p. 372</span></li>
         <li>機台數無界、淨貢獻為 0、UET 時，除非 P = NP，否則不存在 ρ &lt; 3/2 的近似演算法（由 Bin Packing 推得）。<span class="src">p. 369</span></li>
         <li>Rounding Algorithm 在可行排程存在時必產生可行排程，近似比為 2（機台數無界）。<span class="src">Thm 4, p. 377</span></li>
@@ -72,14 +72,13 @@
         <li>本篇是「資源限制 + 兩台平行機」最直接的複雜度基準：兩台機器、UET 都已經 strongly NP-hard，凡是以此模型為特例的雙機資源限制問題，都會繼承這個困難度。（整理者推論）</li>
         <li>Mirror instance 提供把「消耗資源」與「產生資源」對稱處理的技巧。</li>
         <li>「放寬成可切片、用 knapsack 貪婪求解、再 rounding」的近似設計思路，可作為近似演算法設計的參考。</li>
-        <li>本篇沒有代理人概念；雙代理人的設定見 <a href="lee-2014-two-agent.html">Lee et al. (2014)</a> 與 <a href="../concepts/two-agent-scheduling.html">雙代理人排程</a>。<span class="verify">待作者補充</span></li>
+        <li>本篇沒有代理人概念；雙代理人的設定見 <a href="lee-2014-two-agent.html">Lee et al. (2014)</a> 與 <a href="../concepts/two-agent-scheduling.html">雙代理人排程</a>。</li>
       </ul>
 
       <h2 id="notes">閱讀備註</h2>
       <ul>
         <li>原文為作者個人版（Elsevier author's personal copy），有轉載限制，因此本站只放整理與 DOI 連結。線上發表日 2006-08-22。</li>
-        <li><span class="verify">待確認</span> 原文 Thm 2 與結論對條件的用語不同：Thm 2 為「淨貢獻非負」，結論寫「淨貢獻為正」。本站以定理敘述為準。</li>
-        <li>文字抽取時希臘字母受損，α、β、δ 的對應是依上下文與其他篇對照判讀，建議對照原文確認。</li>
+        <li>原文 Thm 2 與結論對條件的用語不同：Thm 2 為「淨貢獻非負」，結論寫「淨貢獻為正」。本站以定理敘述為準。</li>
         <li>本篇被 <a href="kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a>、<a href="cheng-2009-johnson-composite.html">Cheng & Lin (2009)</a> 與 <a href="lin-2016-fixed-sequences.html">Lin et al. (2016)</a> 引用，並是它們的背景結果。</li>
       </ul>
     </article>

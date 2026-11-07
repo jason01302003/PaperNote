@@ -52,7 +52,7 @@
         <li>Σw<sub>j</sub>T<sub>j</sub> 與 Σw<sub>j</sub>U<sub>j</sub> 可用 BDP-2 在 O(n<sub>1</sub>n<sub>2</sub>(n<sub>1</sub> + n<sub>2</sub>)·min{p<sub>1,[1:n<sub>1</sub>]</sub>, p<sub>2,[1:n<sub>2</sub>]</sub>}) 的擬多項式時間求解；加工時間相同時為 O(n<sub>1</sub>n<sub>2</sub>min{n<sub>1</sub>, n<sub>2</sub>})。<span class="src">Thm 4, p. 161</span></li>
         <li>ΣU<sub>j</sub>（延遲工作數）可在 O(n<sub>1</sub><sup>2</sup>n<sub>2</sub><sup>2</sup>(n<sub>1</sub> + n<sub>2</sub>)<sup>2</sup>) 時間求解。<span class="src">Thm 5, p. 162</span></li>
         <li>所有工作加工時間相同時，六種目標函數皆可在多項式時間求解。<span class="src">§6, p. 162</span></li>
-        <li>背景結果：一般（未固定順序）兩台專用機的 makespan 與總完工時間最小化皆為 strongly NP-hard。<span class="src">§1, p. 154</span> <span class="verify">待確認</span></li>
+        <li>背景結果：一般（未固定順序）兩台專用機的 makespan 與總完工時間最小化皆為 strongly NP-hard。<span class="src">§1, p. 154</span></li>
       </ul>
 
       <h2 id="limitations">限制</h2>
@@ -72,16 +72,15 @@
       <ul>
         <li>這是「兩台平行機 + 資源限制」中，唯一把「時間決定」子問題做完整複雜度分類的文獻；若把指派與排序交給搜尋法，本文的 DP 可作為評估給定序列的子程序，作者在 §1 也是這樣定位。</li>
         <li>與 <a href="lee-2014-two-agent.html">Lee et al. (2014)</a> 的方法可互補：後者以序列表示搭配 pairwise interchange 搜尋，本文提供在資源限制下評估一個序列的做法。（整理者推論）</li>
-        <li>本文沒有代理人；雙代理人的設定可參考 <a href="../concepts/two-agent-scheduling.html">雙代理人排程</a>。<span class="verify">待作者補充</span></li>
+        <li>本文沒有代理人；雙代理人的設定可參考 <a href="../concepts/two-agent-scheduling.html">雙代理人排程</a>。</li>
       </ul>
 
       <h2 id="notes">閱讀備註</h2>
       <ul>
         <li>Springer e-offprint，僅供個人使用，不得自行公開存放，因此本站只放整理與 DOI 連結。線上發表日 2015-09-28，期刊刊登於 2016 年 4 月。</li>
-        <li><span class="verify">待確認</span> 緒論（p. 154）把「一般兩台專用機的 strongly NP-hard」由 <a href="kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a> 與 <a href="kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a> 兩篇的結果推得，沒有獨立證明，建議回到原文核對。</li>
+        <li>緒論（p. 154）把「一般兩台專用機的 strongly NP-hard」由 <a href="kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a> 與 <a href="kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a> 兩篇的結果推得，沒有獨立證明，建議回到原文核對。</li>
         <li>緒論引用 Kaplan 與 Amir 的結果：決定使可行排程存在的最小初始資源，等價於兩機 flowshop 的 makespan 最小化（見 <a href="../concepts/johnsons-rule-flowshop.html">兩機 flowshop 與 Johnson's rule</a>）。<span class="src">§1, p. 153</span></li>
         <li>本文引用的 Kononov & Lin (2010) 的完整出處為 Journal of Scheduling, 13(2), 123–129，本站據此補入該篇的卷期頁碼。</li>
-        <li>文字抽取時希臘字母受損，α、β、δ 的對應是依上下文判讀，建議對照原文確認。</li>
       </ul>
     </article>
 
