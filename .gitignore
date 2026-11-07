@@ -1,0 +1,19 @@
+# 論文原文有版權，不得上傳
+參考文獻/
+*.pdf
+
+# 作業繳交檔與 Office 暫存檔
+*.docx
+~$*
+*.tmp
+
+# 本機預覽設定
+.claude/
+
+# 系統與編輯器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+__pycache__/
+*.pyc

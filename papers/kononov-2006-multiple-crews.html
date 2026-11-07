@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kononov & Lin (2006)｜我的論文文獻庫</title>
+  <meta name="description" content="研究多台相同平行機的 relocation problem：兩機 UET 情形為 strongly NP-hard，並提出 2-近似與 (3−2/m)-近似演算法。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="paper" data-root="../" data-slug="kononov-2006-multiple-crews">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">Kononov & Lin (2006)</p>
+        <h1>On relocation problems with multiple identical working crews</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="summary">一句話摘要</h2>
+      <p>本文把 <a href="../concepts/relocation-problem.html">relocation problem</a>（RP）從單一施工團隊推廣到多台相同<a href="../concepts/parallel-machines.html">平行機</a>（對應多組施工團隊），目標是在資源限制下最小化 makespan。作者證明兩台機器、UET（unit execution time，所有工作加工時間皆為 1）的情形為 strongly <a href="../concepts/np-hardness.html">NP-hard</a>，給出機台數無界時的不可近似性結果，並提出機台數不限時的 2-<a href="../concepts/approximation-algorithms.html">近似演算法</a>，以及 m 台機器時的 (3 − 2/m)-近似演算法。<span class="src">Abstract, p. 366</span></p>
+
+      <h2 id="problem">問題設定</h2>
+      <table>
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td>機台環境</td><td>m 台相同平行機（identical parallel machines）；另討論「專用機」版本 RPD：每個工作必須在指定機台上處理。<span class="src">p. 367, p. 369</span></td></tr>
+          <tr><td>代理人</td><td>原文未涉及多代理人。</td></tr>
+          <tr><td>工作參數</td><td>工作 J<sub>i</sub> 的資源需求 α<sub>i</sub>、完工後歸還的資源 β<sub>i</sub>、加工時間 p<sub>i</sub>；淨貢獻 δ<sub>i</sub> = β<sub>i</sub> − α<sub>i</sub> 可為正、零或負。主要結果集中在所有工作加工時間相同的情形。<span class="src">p. 367; Abstract, p. 366</span></td></tr>
+          <tr><td>資源模型</td><td>單一種資源池，初始量 V<sub>0</sub>。工作開始時需要並立即消耗 α<sub>i</sub> 單位，完成時立即歸還 β<sub>i</sub> 單位；任何時刻的資源水位 V<sub>t</sub> 必須 ≥ 0。<span class="src">Eq. (1), p. 367</span></td></tr>
+          <tr><td>目標函數</td><td>最小化 makespan（C<sub>max</sub>）。<span class="src">p. 367</span></td></tr>
+          <tr><td>記號</td><td>原文以 RP、RPD、RP<sub>2</sub><sup>+</sup>、RPD<sub>2</sub><sup>+</sup> 等縮寫命名問題變體，未見 Graham 三欄記號。<span class="src">§3, p. 369</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="method">方法與演算法</h2>
+      <ul>
+        <li><strong>Mirror instance（鏡像實例）</strong>：把工作的 α<sub>i</sub> 與 β<sub>i</sub> 對調、初始資源調整為 V<sub>0</sub> + Σ(β<sub>i</sub> − α<sub>i</sub>)，並把排程在時間上反轉，得到 makespan 相同的鏡像排程。因此對「淨貢獻非負」證明的結果，同樣適用於「淨貢獻非正」。<span class="src">Lemma 1, p. 367</span></li>
+        <li><strong>與 Bin Packing 的關係</strong>：機台數無界、淨貢獻為 0 且 UET 時，RP 等價於 Bin Packing；機台數至多 m 時對應 Cardinality Constrained Bin Packing。<span class="src">§2, p. 368</span></li>
+        <li><strong>NP-hardness 證明</strong>：先證明專用機版本 RPD<sub>2</sub><sup>+</sup> 為 strongly NP-hard（由 NMTS，Numerical Matching with Target Sums 規約），再把 RPD<sub>2</sub> 轉換為兩台相同機的 RP<sub>2</sub><sup>+</sup>。<span class="src">Thm 1–2, p. 369–372</span></li>
+        <li><strong>不可近似性</strong>：由 Partition 問題規約。<span class="src">Thm 3, p. 372</span></li>
+        <li><strong>近似演算法的骨架</strong>：先把問題放寬成「工作可被切成片段」的 RRP，用 Greedy Algorithm 1（每個時槽解一次 Fractional Knapsack）處理非負貢獻的工作；Greedy Algorithm 2 把工作分成 N<sup>+</sup> 與 N<sup>−</sup>，後者用 mirror instance 處理。<span class="src">§5, p. 373–375</span></li>
+        <li><strong>Rounding Algorithm</strong>：把被切成片段的工作重新整合到單一時槽，得到可行排程。<strong>Splitting Algorithm</strong>：把工作數超過機台數的時槽拆開，處理 m 台機器的情形。<span class="src">p. 377</span></li>
+      </ul>
+
+      <h2 id="results">主要結果</h2>
+      <ul>
+        <li>前人結果：單一團隊（單機）時，RP 的最小初始資源問題等價於兩機 flowshop 的 makespan 問題（見 <a href="../concepts/johnsons-rule-flowshop.html">兩機 flowshop 與 Johnson's rule</a>），可行性可在 O(n log n) 時間檢驗。<span class="src">p. 367</span></li>
+        <li>RPD<sub>2</sub><sup>+</sup>（兩台專用機、UET、所有工作淨貢獻為正）為 strongly NP-hard。<span class="src">Thm 1, p. 369</span></li>
+        <li>RP<sub>2</sub><sup>+</sup>（兩台相同機、UET、淨貢獻非負）為 strongly NP-hard。<span class="src">Thm 2, p. 372</span> <span class="verify">待確認</span></li>
+        <li>機台數無界、UET、α<sub>i</sub> ≤ β<sub>i</sub> 時，除非 P = NP，否則不存在 ρ &lt; 4/3 的漸近近似演算法。<span class="src">Thm 3, p. 372</span></li>
+        <li>機台數無界、淨貢獻為 0、UET 時，除非 P = NP，否則不存在 ρ &lt; 3/2 的近似演算法（由 Bin Packing 推得）。<span class="src">p. 369</span></li>
+        <li>Rounding Algorithm 在可行排程存在時必產生可行排程，近似比為 2（機台數無界）。<span class="src">Thm 4, p. 377</span></li>
+        <li>Splitting Algorithm 對 m 台相同機為 (3 − 2/m)-近似演算法，且作者給出實例說明兩個近似比都是緊的。<span class="src">Thm 5, p. 378; p. 379</span></li>
+      </ul>
+
+      <h2 id="limitations">限制</h2>
+      <h3>作者自述</h3>
+      <ul>
+        <li>大部分結果只針對所有工作加工時間相同（UET）的情形。<span class="src">Abstract, p. 366</span></li>
+        <li>作者建議未來研究「兩機 flowshop」型的 relocation（第一台機器負責拆除、第二台負責興建，資源要等第二階段完成才能再利用），而非平行機。<span class="src">§6, p. 380</span></li>
+      </ul>
+      <h3>整理者觀察</h3>
+      <ul>
+        <li>只考慮 makespan，不含到期日、權重等其他目標；沒有數值實驗。</li>
+        <li>無界機台的近似比（2）與不可近似下界（4/3）之間存在差距，原文未討論能否縮小。</li>
+      </ul>
+
+      <h2 id="relevance">與我研究的關聯</h2>
+      <ul>
+        <li>本篇是「資源限制 + 兩台平行機」最直接的複雜度基準：兩台機器、UET 都已經 strongly NP-hard，凡是以此模型為特例的雙機資源限制問題，都會繼承這個困難度。（整理者推論）</li>
+        <li>Mirror instance 提供把「消耗資源」與「產生資源」對稱處理的技巧。</li>
+        <li>「放寬成可切片、用 knapsack 貪婪求解、再 rounding」的近似設計思路，可作為近似演算法設計的參考。</li>
+        <li>本篇沒有代理人概念；雙代理人的設定見 <a href="lee-2014-two-agent.html">Lee et al. (2014)</a> 與 <a href="../concepts/two-agent-scheduling.html">雙代理人排程</a>。<span class="verify">待作者補充</span></li>
+      </ul>
+
+      <h2 id="notes">閱讀備註</h2>
+      <ul>
+        <li>原文為作者個人版（Elsevier author's personal copy），有轉載限制，因此本站只放整理與 DOI 連結。線上發表日 2006-08-22。</li>
+        <li><span class="verify">待確認</span> 原文 Thm 2 與結論對條件的用語不同：Thm 2 為「淨貢獻非負」，結論寫「淨貢獻為正」。本站以定理敘述為準。</li>
+        <li>文字抽取時希臘字母受損，α、β、δ 的對應是依上下文與其他篇對照判讀，建議對照原文確認。</li>
+        <li>本篇被 <a href="kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a>、<a href="cheng-2009-johnson-composite.html">Cheng & Lin (2009)</a> 與 <a href="lin-2016-fixed-sequences.html">Lin et al. (2016)</a> 引用，並是它們的背景結果。</li>
+      </ul>
+    </article>
+
+    <nav class="paper-nav" data-paper-nav aria-label="上一篇與下一篇"></nav>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

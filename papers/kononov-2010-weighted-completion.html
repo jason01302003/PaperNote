@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kononov & Lin (2010)｜我的論文文獻庫</title>
+  <meta name="description" content="單機 relocation problem 的 ΣwC：證明四個特例 strongly NP-hard，並對 UET 且 δ ≥ 0 的情形給出 2-近似演算法。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="paper" data-root="../" data-slug="kononov-2010-weighted-completion">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">Kononov & Lin (2010)</p>
+        <h1>Minimizing the total weighted completion time in the relocation problem</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="summary">一句話摘要</h2>
+      <p>本文研究單機 <a href="../concepts/relocation-problem.html">relocation problem</a> 的總加權完工時間（ΣwC，作者簡稱 RPWT）。作者證明四個特例為 strongly <a href="../concepts/np-hardness.html">NP-hard</a>，建立「UET 情形」與「單位權重情形」的完全等價，並對 UET 且淨貢獻非負的情形提出 O(n<sup>2</sup>) 的 2-<a href="../concepts/approximation-algorithms.html">近似演算法</a>（Algorithm W），同時給出說明近似比緊的實例。<span class="src">Abstract</span></p>
+
+      <h2 id="problem">問題設定</h2>
+      <table>
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td>機台環境</td><td>單機。<span class="src">§1</span></td></tr>
+          <tr><td>代理人</td><td>原文未涉及多代理人。</td></tr>
+          <tr><td>工作參數</td><td>工作 J<sub>i</sub> 的加工時間 p<sub>i</sub>、權重 w<sub>i</sub>、資源需求 α<sub>i</sub>、歸還資源 β<sub>i</sub>；淨貢獻 δ<sub>i</sub> = β<sub>i</sub> − α<sub>i</sub>。<span class="src">§1, §2</span></td></tr>
+          <tr><td>資源模型</td><td>單一種資源池，初始量 V<sub>0</sub>；工作開始時至少要有 α<sub>i</sub> 單位並消耗之，完成時立即歸還 β<sub>i</sub> 單位。假設排程中不允許閒置。<span class="src">§1</span></td></tr>
+          <tr><td>目標函數</td><td>最小化 Σ w<sub>i</sub>C<sub>i</sub>，問題簡稱 RPWT。<span class="src">§1</span></td></tr>
+          <tr><td>記號</td><td>以 RPWT、UET 情形（p<sub>i</sub> = 1）、單位權重情形（w<sub>i</sub> = 1）命名特例，未使用 Graham 三欄記號。<span class="src">§1–2</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="method">方法與演算法</h2>
+      <ul>
+        <li><strong>為何不能直接套 WSPT</strong>：WSPT 規則對一般的單機 ΣwC 是最佳的，但在 RPWT 中，高權重工作可能因資源不足而被延後。作者以 4 個工作、V<sub>0</sub> = 0 的例子說明。<span class="src">§1</span></li>
+        <li><strong>硬度證明</strong>：由 Ordered Numerical 3-Dimensional Matching（ON3M，可由 Numerical 3-Dimensional Matching 轉換而來）規約；細節放在附錄 A。<span class="src">§2, Thm 1–2; Appendix A</span></li>
+        <li><strong>完全等價（totally equivalent）</strong>：利用把 p<sub>i</sub> 與 w<sub>i</sub> 互換並反轉排程序列的轉換，使目標值保持不變，因此兩種特例的複雜度與近似性可以互相轉用。<span class="src">Thm 3, §2</span></li>
+        <li><strong>Algorithm W</strong>：先建立兩個序列，σ<sub>1</sub> 依權重 w<sub>i</sub> 非遞增、σ<sub>2</sub> 依淨貢獻 δ<sub>i</sub> 非遞增；排程時依序交替從 σ<sub>1</sub>、σ<sub>2</sub> 中取出第一個「可用」（α<sub>i</sub> ≤ 目前資源水位）的工作放到下一個位置，直到排完或發現無可用工作。時間複雜度 O(n<sup>2</sup>)。<span class="src">§3</span></li>
+      </ul>
+
+      <h2 id="results">主要結果</h2>
+      <ul>
+        <li>RPWT 在 UET（p<sub>i</sub> = 1）且 δ<sub>i</sub> ≤ 0 時為 strongly NP-hard。<span class="src">Thm 1, §2</span></li>
+        <li>RPWT 在 UET 且 δ<sub>i</sub> ≥ 0 時為 strongly NP-hard。<span class="src">Thm 2, §2</span></li>
+        <li>UET 情形與單位權重情形完全等價；因此單位權重（w<sub>i</sub> = 1）情形在兩種淨貢獻符號下也都是 strongly NP-hard。<span class="src">Thm 3, Cor 1–2, §2</span> <span class="verify">待確認</span></li>
+        <li>Algorithm W 在 UET 且 δ<sub>i</sub> ≥ 0 的情形，若存在可行排程就能找到可行排程，且近似比為 2。<span class="src">Lemma 1, Thm 4, §3</span></li>
+        <li>作者給出一組實例（n 為偶數），使 Algorithm W 的目標值與最佳值之比在 n 趨近無窮時趨近 2，說明近似比是緊的。<span class="src">§3</span></li>
+        <li>透過 Thm 3 的等價，近似結果也可轉用到對應的單位權重情形。<span class="src">§3, §4</span></li>
+      </ul>
+
+      <h2 id="limitations">限制</h2>
+      <h3>作者自述</h3>
+      <ul>
+        <li>證明近似比所用的技巧，無法直接套用到另外兩個特例，作者列為值得研究的方向。<span class="src">§4</span> <span class="verify">待確認</span></li>
+        <li>一般形式 RPWT 的近似性或不可近似性仍未解決。<span class="src">§4</span></li>
+      </ul>
+      <h3>整理者觀察</h3>
+      <ul>
+        <li>只有單機；全文為理論分析，未見數值實驗。</li>
+        <li>近似結果僅涵蓋 UET 且淨貢獻非負（及其等價情形），其餘特例只有 NP-hardness。</li>
+      </ul>
+
+      <h2 id="relevance">與我研究的關聯</h2>
+      <ul>
+        <li>說明即使只有單機，在 relocation 模型中加入總加權完工時間也會 strongly NP-hard，是資源限制排程難度的另一個基準，可與 <a href="kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a> 的 makespan 結果對照。</li>
+        <li>「兩個排序序列交替派工」的近似設計，以及「兩種參數互換使複雜度互相轉用」的等價技巧，可作為處理多目標或多參數情境的參考。</li>
+        <li>與 <a href="../concepts/johnsons-rule-flowshop.html">Johnson's rule 與 flowshop</a> 的關係：作者在緒論引用基本 relocation 與兩機 flowshop 的等價結果，作為問題背景。<span class="src">§1</span></li>
+        <li><span class="verify">待作者補充</span></li>
+      </ul>
+
+      <h2 id="notes">閱讀備註</h2>
+      <ul>
+        <li><span class="verify">待確認</span> 本 PDF 為預印本版面，沒有期刊頁碼，首頁標示線上發表日 2009-12-17。卷期頁碼（13(2), 123–129）與年份 2010 取自 <a href="lin-2016-fixed-sequences.html">Lin et al. (2016)</a> 的參考文獻列表，因此本頁來源標記以章節與定理編號為主。</li>
+        <li><span class="verify">待確認</span> Cheng 與 Lin（2009）引用過一篇標題為「Resource-constrained scheduling to minimize weighted completion time on a single machine」的 submitted 稿件，可能就是本文的前身，見 <a href="cheng-2009-johnson-composite.html">Cheng & Lin (2009)</a>。</li>
+        <li>文字抽取時希臘字母與部分符號受損，Cor 1–2 與緊接結論段中 δ<sub>i</sub> 的符號方向是依上下文判讀，建議對照原文確認。</li>
+        <li>本文的背景結果（兩台機器 makespan 的 strongly NP-hard）來自 <a href="kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a>。<span class="src">§1</span></li>
+      </ul>
+    </article>
+
+    <nav class="paper-nav" data-paper-nav aria-label="上一篇與下一篇"></nav>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

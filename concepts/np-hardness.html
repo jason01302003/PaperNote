@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>計算複雜度：strongly NP-hard 與 ordinary NP-hard｜我的論文文獻庫</title>
+  <meta name="description" content="整理各文獻對問題難度的分類：strongly NP-hard、ordinary NP-hard、擬多項式與多項式可解。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="concept" data-root="../" data-slug="np-hardness">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">概念 · NP-hardness</p>
+        <h1>計算複雜度：strongly NP-hard 與 ordinary NP-hard</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="definition">定義</h2>
+      <div class="callout">
+        <p>本頁只彙整各篇文獻實際使用的分類與結果，不引入原文以外的教科書定義。</p>
+      </div>
+      <p>本庫文獻用下列層級描述問題難度：</p>
+      <ul>
+        <li><strong>strongly NP-hard</strong>（也寫作 NP-hard in the strong sense；Kononov 與 Lin 的結論稱 unary NP-hard）：<a href="../papers/kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a> 與 <a href="../papers/kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a> 用它描述 relocation 的難度。<span class="src">DO2006, Abstract, p. 366; §6, p. 380; KL2010, Abstract</span></li>
+        <li><strong>ordinary NP-hard</strong>（NP-hard in the ordinary sense）：<a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a> 以此描述 ΣwT 與 ΣwU，並同時給出擬多項式時間（pseudo-polynomial）的動態規劃。<span class="src">LHK2016, Thm 2–4, p. 158–161</span></li>
+        <li><strong>多項式時間可解</strong>：如固定順序 RPD<sub>2</sub> 的 C<sub>max</sub>、ΣwC、L<sub>max</sub> 與 ΣU。<span class="src">LHK2016, Thm 1, p. 158; Thm 5, p. 162</span></li>
+      </ul>
+      <p>證明常用的規約來源：NMTS、Numerical 3-Dimensional Matching 及其變形（strongly NP-hard 結果）；Partition（ordinary NP-hard 結果）；單機總延遲問題（Du 與 Leung，用於雙代理人問題）。<span class="src">DO2006, p. 369; KL2010, §2; LHK2016, p. 158; <a href="../papers/lee-2014-two-agent.html">Lee et al. (2014)</a>, §3, p. 2</span></p>
+
+      <h2 id="variants">變體與記號</h2>
+      <table>
+        <thead><tr><th>問題</th><th>難度</th><th>出處</th></tr></thead>
+        <tbody>
+          <tr><td>RPD<sub>2</sub><sup>+</sup>：兩台專用機、UET、貢獻為正，最小化 C<sub>max</sub></td><td>strongly NP-hard（由 NMTS 規約）</td><td><span class="src">DO2006, Thm 1, p. 369</span></td></tr>
+          <tr><td>RP<sub>2</sub><sup>+</sup>：兩台相同機、UET、貢獻非負，最小化 C<sub>max</sub></td><td>strongly NP-hard</td><td><span class="src">DO2006, Thm 2, p. 372</span></td></tr>
+          <tr><td>零貢獻、UET 的 RP 對應 Cardinality Constrained Bin Packing</td><td>m ≥ 3 時 strongly NP-hard（文中稱為已知結果）</td><td><span class="src">DO2006, §2, p. 368</span></td></tr>
+          <tr><td>RPWT：單機 relocation 的 ΣwC，四個 UET／單位權重特例</td><td>strongly NP-hard（由 ON3M 規約）</td><td><span class="src">KL2010, Thm 1–2, Cor 1–2</span></td></tr>
+          <tr><td>固定順序 RPD<sub>2</sub>，最小化 ΣwT</td><td>ordinary NP-hard；擬多項式 DP</td><td><span class="src">LHK2016, Thm 2, p. 158; Thm 4, p. 161</span></td></tr>
+          <tr><td>固定順序 RPD<sub>2</sub>，最小化 ΣwU</td><td>ordinary NP-hard；擬多項式 DP</td><td><span class="src">LHK2016, Thm 3, p. 160; Thm 4, p. 161</span></td></tr>
+          <tr><td>固定順序 RPD<sub>2</sub>，C<sub>max</sub>、ΣwC、L<sub>max</sub></td><td>多項式時間，O(n<sub>1</sub>n<sub>2</sub>(n<sub>1</sub> + n<sub>2</sub>))</td><td><span class="src">LHK2016, Thm 1, p. 158</span></td></tr>
+          <tr><td>固定順序 RPD<sub>2</sub>，ΣU</td><td>多項式時間，O(n<sub>1</sub><sup>2</sup>n<sub>2</sub><sup>2</sup>(n<sub>1</sub> + n<sub>2</sub>)<sup>2</sup>)</td><td><span class="src">LHK2016, Thm 5, p. 162</span></td></tr>
+          <tr><td>單機雙代理人：1 | Σ<sub>AG2</sub>U<sub>j</sub> = 0 | Σ<sub>AG1</sub>(θT<sub>j</sub> + (1 − θ)C<sub>j</sub>)</td><td>AG2 沒有工作且 θ = 1 時退化為單機總延遲問題（已知 NP-hard）</td><td><span class="src">Lee 等, §3, p. 2</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="literature">文獻怎麼說</h2>
+      <table>
+        <thead><tr><th>論文</th><th>對此概念的貢獻或結果</th><th>來源</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../papers/kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a></td><td>兩台機器、UET 的 relocation 為 strongly NP-hard；並給出不可近似性結果（見 <a href="approximation-algorithms.html">近似演算法</a>）。</td><td><span class="src">Thm 1–3, p. 369–372</span></td></tr>
+          <tr><td><a href="../papers/kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a></td><td>單機 ΣwC 的四個特例 strongly NP-hard，並證明 UET 情形與單位權重情形完全等價。</td><td><span class="src">Thm 1–3, Cor 1–2, §2</span></td></tr>
+          <tr><td><a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a></td><td>給出六種目標函數的複雜度分類（見 Fig. 7 的層級圖）：三種與 ΣU 多項式可解，兩種 ordinary NP-hard。</td><td><span class="src">§6, p. 162; Fig. 7, p. 162</span></td></tr>
+          <tr><td><a href="../papers/lee-2014-two-agent.html">Lee et al. (2014)</a></td><td>指出其問題包含單機總延遲問題為特例，因此採用 <a href="solution-methods.html">branch-and-bound</a> 求最佳解。</td><td><span class="src">§3, p. 2</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="disagreements">差異與矛盾</h2>
+      <ul>
+        <li>Kononov 與 Lin（2006）的 Thm 2 寫「淨貢獻非負」，結論寫「淨貢獻為正」。<span class="src">DO2006, Thm 2, p. 372; §6, p. 380</span> <span class="verify">待確認</span></li>
+        <li>Lin 等人（2016）緒論把一般兩台專用機的 makespan 與總完工時間為 strongly NP-hard，說成由 Kononov 與 Lin 的兩篇前作「共同蘊含」，沒有獨立證明。<span class="src">LHK2016, §1, p. 154</span> <span class="verify">待確認</span></li>
+      </ul>
+
+      <h2 id="open-questions">待解問題</h2>
+      <ul>
+        <li>作者自述：固定順序 RPD<sub>2</sub> 的 ΣT<sub>j</sub>（未加權總延遲）的複雜度仍未知；NP-hardness 證明受限於固定順序而更困難。<span class="src">LHK2016, §6, p. 162</span></li>
+        <li>作者自述：RPWT 的另外兩個特例（見原文 §4）仍缺近似結果。<span class="src">KL2010, §4</span> <span class="verify">待確認</span></li>
+        <li>整理者觀察：Lee 等人（2014）只說明問題包含 NP-hard 特例，原文未獨立分類完整雙代理人問題的複雜度。</li>
+      </ul>
+    </article>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

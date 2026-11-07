@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relocation problem 與資源回收模型｜我的論文文獻庫</title>
+  <meta name="description" content="工作開始時消耗 α 單位資源、完成時歸還 β 單位（β 可大於、等於或小於 α）的資源限制排程。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="concept" data-root="../" data-slug="relocation-problem">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">概念 · Relocation problem</p>
+        <h1>Relocation problem 與資源回收模型</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="definition">定義</h2>
+      <p>Relocation problem（RP）是一類資源限制排程：有一個單一種資源池，初始量為 V<sub>0</sub>；工作 J<sub>i</sub> 開始時需要並消耗 α<sub>i</sub> 單位資源，完成時歸還 β<sub>i</sub> 單位資源；淨貢獻 δ<sub>i</sub> = β<sub>i</sub> − α<sub>i</sub> 可以為正、零或負。排程可行，表示任何時刻的資源水位都不為負。<span class="src">DO2006, Eq. (1), p. 367</span></p>
+      <p>它與傳統資源限制排程的差別在於歸還量可以小於、等於或大於需求量，因此是傳統模型的推廣。<span class="src">KL2010, §1</span> 問題起源於波士頓的公共住宅重建專案：多棟舊建築要拆除並重建，住戶必須先被安置，預算相當於初始資源。<span class="src">DO2006, p. 366</span></p>
+      <p>最基本的形式是單一施工團隊（單機）、不含加工時間，目標是找出使可行序列存在的最小初始資源；這個問題等價於 <a href="johnsons-rule-flowshop.html">兩機 flowshop 的 makespan 最小化</a>。<span class="src">CL2009, §5, p. 1011; DO2006, p. 367</span></p>
+
+      <h2 id="variants">變體與記號</h2>
+      <table>
+        <thead><tr><th>變體</th><th>條件</th><th>出處</th></tr></thead>
+        <tbody>
+          <tr><td>基本 RP</td><td>單一團隊、不含加工時間，求最小初始資源</td><td><span class="src">CL2009, p. 1011; DO2006, p. 367</span></td></tr>
+          <tr><td>RPWT</td><td>單機、含加工時間 p<sub>i</sub> 與權重 w<sub>i</sub>，最小化 Σw<sub>i</sub>C<sub>i</sub>；特例有 UET（p<sub>i</sub> = 1）與單位權重（w<sub>i</sub> = 1）</td><td><span class="src">KL2010, §1–2</span></td></tr>
+          <tr><td>多團隊 RP</td><td>m 台<a href="parallel-machines.html">相同平行機</a>、最小化 makespan，結果以 UET 為主</td><td><span class="src">DO2006, p. 367; Abstract, p. 366</span></td></tr>
+          <tr><td>RPD<sub>m</sub></td><td>專用機版本：工作事先指定機台</td><td><span class="src">DO2006, p. 369; LHK2016, p. 154</span></td></tr>
+          <tr><td>固定順序 RPD<sub>2</sub></td><td>兩台專用機、各機加工順序已固定，六種目標函數</td><td><span class="src">LHK2016, p. 153–155</span></td></tr>
+          <tr><td>記號對照</td><td>DO2006 與 KL2010 用 α<sub>i</sub>、β<sub>i</sub>、V<sub>0</sub>；CL2009 用 a<sub>i</sub>、b<sub>i</sub>、v<sub>0</sub>；LHK2016 用 α<sub>k,h</sub>、β<sub>k,h</sub>、v<sub>0</sub></td><td><span class="src">各篇 §2</span></td></tr>
+        </tbody>
+      </table>
+      <p>縮寫：DO2006 = <a href="../papers/kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a>；CL2009 = <a href="../papers/cheng-2009-johnson-composite.html">Cheng & Lin (2009)</a>；KL2010 = <a href="../papers/kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a>；LHK2016 = <a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a>。</p>
+
+      <h2 id="literature">文獻怎麼說</h2>
+      <table>
+        <thead><tr><th>論文</th><th>對此概念的貢獻或結果</th><th>來源</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../papers/kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a></td><td>推廣到多台相同平行機的 makespan 問題；兩機 UET 為 strongly NP-hard；給出 2-近似與 (3 − 2/m)-近似演算法。</td><td><span class="src">Abstract, p. 366; Thm 4–5, p. 377–378</span></td></tr>
+          <tr><td><a href="../papers/cheng-2009-johnson-composite.html">Cheng & Lin (2009)</a></td><td>以 composite job 說明基本 RP 與 F2||C<sub>max</sub> 的等價，並給出 Johnson's rule 的 relocation 詮釋。</td><td><span class="src">§5, p. 1011–1012</span></td></tr>
+          <tr><td><a href="../papers/kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a></td><td>單機 ΣwC：四個特例 strongly NP-hard；UET 且淨貢獻非負時 2-近似。</td><td><span class="src">Abstract; Thm 1–4</span></td></tr>
+          <tr><td><a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a></td><td>兩台專用機、固定順序：C<sub>max</sub>、ΣwC、L<sub>max</sub> 與 ΣU 多項式可解，ΣwT、ΣwU 為 ordinary NP-hard。</td><td><span class="src">Abstract, p. 153; Thm 1–5, p. 158–162</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="disagreements">差異與矛盾</h2>
+      <ul>
+        <li>記號不統一（α、β、V<sub>0</sub> 與 a、b、v<sub>0</sub>），只是命名差異，不影響結論。<span class="src">各篇 §2</span></li>
+        <li>DO2006 的 Thm 2 寫「淨貢獻非負」，結論卻寫「淨貢獻為正」，用語不一致。<span class="src">Thm 2, p. 372; §6, p. 380</span> <span class="verify">待確認</span>（見該篇閱讀備註）</li>
+        <li>CL2009 的參考文獻把 DO2006 的出處寫成 21, 368–381，與實際的 3(4), 366–381 不一致，疑為筆誤。<span class="src">CL2009, References, p. 1012</span> <span class="verify">待確認</span></li>
+      </ul>
+
+      <h2 id="open-questions">待解問題</h2>
+      <ul>
+        <li>作者自述：為 relocation 加入時間參數（加工時間、釋放時間、到期日）值得研究，且涉及時間參數時往往出現理論挑戰。<span class="src">CL2009, §6, p. 1012</span></li>
+        <li>作者自述：一般形式 RPWT 的近似性或不可近似性尚未解決。<span class="src">KL2010, §4</span></li>
+        <li>作者自述：固定順序 RPD<sub>2</sub> 的總延遲 ΣT<sub>j</sub> 複雜度仍是 open problem。<span class="src">LHK2016, §6, p. 162</span></li>
+        <li>作者自述：「兩機 flowshop」型的 relocation（拆除團隊與興建團隊分屬兩個階段）值得研究。<span class="src">DO2006, §6, p. 380</span></li>
+        <li>整理者觀察：本庫 4 篇 relocation 文獻都是單一代理人，沒有任何一篇把 relocation 與多代理人結合。</li>
+      </ul>
+    </article>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

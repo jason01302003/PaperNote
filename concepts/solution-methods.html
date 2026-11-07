@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>精確法與啟發式：動態規劃、分支定界、模擬退火｜我的論文文獻庫</title>
+  <meta name="description" content="本庫文獻用到的求解方法：動態規劃、分支定界與模擬退火，及其適用情境。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="concept" data-root="../" data-slug="solution-methods">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">概念 · Exact and heuristic methods</p>
+        <h1>精確法與啟發式：動態規劃、分支定界、模擬退火</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="definition">定義</h2>
+      <p>本庫文獻用到三類求解方法：<strong>動態規劃</strong>（dynamic programming，<a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a>）、<strong>分支定界</strong>（branch-and-bound）與<strong>模擬退火</strong>（simulated annealing，<a href="../papers/lee-2014-two-agent.html">Lee et al. (2014)</a>）。前兩者求最佳解，模擬退火求近似最佳解。<span class="src">LHK2016, §3–5, p. 155–162; Lee 等, §3–4, p. 2–4</span></p>
+      <p>當問題為 <a href="np-hardness.html">NP-hard</a> 時，作者會選擇 branch-and-bound 或啟發式；DO2006 與 KL2010 另用有保證的貪婪式 <a href="approximation-algorithms.html">近似演算法</a>，不在本頁範圍。<span class="src">Lee 等, §3, p. 2</span></p>
+
+      <h2 id="variants">變體與記號</h2>
+      <table>
+        <thead><tr><th>方法</th><th>用於</th><th>特性</th><th>出處</th></tr></thead>
+        <tbody>
+          <tr><td>Backward DP（BDP-1）</td><td>固定順序 RPD<sub>2</sub> 的 C<sub>max</sub>、ΣwC、L<sub>max</sub></td><td>狀態 (i, j)；每步前綴三種 schedule block；O(n<sub>1</sub>n<sub>2</sub>(n<sub>1</sub> + n<sub>2</sub>))</td><td><span class="src">LHK2016, §3, p. 155–158</span></td></tr>
+          <tr><td>BDP-2</td><td>ΣwT、ΣwU</td><td>加入 lead time 作為狀態；擬多項式時間</td><td><span class="src">LHK2016, §4, p. 160–161</span></td></tr>
+          <tr><td>Forward DP（FDP）</td><td>ΣU</td><td>狀態含「延遲工作數上限」，值為最小處理跨度</td><td><span class="src">LHK2016, §5, p. 161</span></td></tr>
+          <tr><td>Branch-and-bound</td><td>單機雙代理人</td><td>dominance properties（Property 1–3、Proposition 1–9）與兩階段下界</td><td><span class="src">Lee 等, §3, p. 2–4</span></td></tr>
+          <tr><td>SA1、SA2</td><td>單機雙代理人</td><td>初始序列 AG2 依 EDD、AG1 依 SPT；pairwise interchange 鄰域；SA2 把 AG2 違反量以懲罰項加入目標</td><td><span class="src">Lee 等, §4, p. 4</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="literature">文獻怎麼說</h2>
+      <table>
+        <thead><tr><th>論文</th><th>對此概念的貢獻或結果</th><th>來源</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a></td><td>以動態規劃處理資源限制下「決定開始時間」的子問題；並指出若固定順序問題可有效求解，就能作為搜尋法評估序列的副程序。</td><td><span class="src">§1, p. 154; Thm 1, 4, 5, p. 158–162</span></td></tr>
+          <tr><td><a href="../papers/lee-2014-two-agent.html">Lee et al. (2014)</a></td><td>B&amp;B 可解到 24 個工作；SA 在 n ≤ 24 時誤差低於 1%；n = 100、200 時建議用 SA1。</td><td><span class="src">§5, p. 7–8</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="disagreements">差異與矛盾</h2>
+      <p>目前未發現。兩篇處理的是不同問題，方法互相補充而非衝突。</p>
+
+      <h2 id="open-questions">待解問題</h2>
+      <ul>
+        <li>作者自述：固定順序問題中，ΣwT 與 ΣwU 是否存在近似方案尚未知。<span class="src">LHK2016, §6, p. 162</span></li>
+        <li>整理者觀察：Lee 等人用序列表示與 pairwise interchange 搜尋，而 Lin 等人指出序列表示法的搜尋需要一個評估序列的子程序。兩篇的觀點可互補，但本庫中兩篇沒有直接引用關係（Lee 等人發表在先）。</li>
+        <li>整理者觀察：SA 與 B&amp;B 目前只出現在單機、無資源限制的雙代理人問題，尚無在平行機與資源限制下的實驗結果。</li>
+      </ul>
+    </article>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

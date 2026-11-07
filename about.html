@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>專案規則｜我的論文文獻庫</title>
+  <meta name="description" content="說明這個知識庫如何依 CLAUDE.md 規則，讓 AI 持續整理文獻、累積概念並保持一致。">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="about" data-root="">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">ABOUT</p>
+        <h1>專案規則：讓 AI 持續維護這個知識庫</h1>
+        <p class="lede">本站採用 Karpathy 提出的 LLM Wiki 模式：AI 不是每次從原文重新推導，而是持續建立並維護一組互相連結的頁面。維護規則寫在 <a data-repo="CLAUDE.md" href="#">CLAUDE.md</a>。</p>
+      </header>
+
+      <h2 id="layers">三層架構</h2>
+      <table>
+        <thead><tr><th>層</th><th>本站對應</th><th>誰負責</th></tr></thead>
+        <tbody>
+          <tr><td>Raw sources</td><td><code>參考文獻/</code> 的論文 PDF（不上傳）</td><td>作者提供；AI 只讀不改</td></tr>
+          <tr><td>Wiki</td><td>論文頁、概念頁、首頁、<code>log.md</code></td><td>AI 撰寫與維護，作者核對</td></tr>
+          <tr><td>Schema</td><td><code>CLAUDE.md</code></td><td>作者與 AI 共同演進</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="operations">三種操作</h2>
+      <ul>
+        <li><strong>Ingest</strong>：新增一篇文獻。AI 讀完全文，先與作者討論重點，再寫論文頁、更新相關概念頁、標出與既有文獻的矛盾、更新登錄表、寫入 <code>log.md</code>。一篇通常會動到 4 到 6 個頁面。</li>
+        <li><strong>Query</strong>：提問。AI 只依 wiki 與原文回答並附來源；有價值的答案經作者同意後存回 wiki，讓探索也能累積。</li>
+        <li><strong>Lint</strong>：健檢。檢查矛盾、過時主張、孤立頁、缺少頁面的概念與資料缺口，並回報給作者決定。</li>
+      </ul>
+
+      <h2 id="structure">專案結構</h2>
+<pre><code>.
+├─ CLAUDE.md             給 AI 的規則（唯一規則來源）
+├─ log.md                操作紀錄（只增不改）
+├─ index.html            首頁：比較表、構面覆蓋、概念索引
+├─ papers/               每篇論文一頁
+├─ concepts/             每個概念一頁
+├─ templates/            論文頁與概念頁模板
+├─ data/                 site.js、papers.js、concepts.js（單一事實來源）
+├─ assets/               唯一樣式表與共用腳本
+├─ scripts/              new_paper.py、new_concept.py、check.py
+└─ 參考文獻/             原文 PDF（.gitignore 排除）</code></pre>
+
+      <h2 id="rules">核心規則與驗證</h2>
+      <table>
+        <thead><tr><th>規則</th><th>具體內容</th><th>如何驗證</th></tr></thead>
+        <tbody>
+          <tr><td>固定結構</td><td>論文頁 7 個區塊、概念頁 5 個區塊，id 固定</td><td><code>check.py</code> 檢查 id 與順序</td></tr>
+          <tr><td>單一事實來源</td><td>標題、作者、年份、概念關係只寫在登錄表</td><td><code>check.py</code> 比對頁面與登錄表</td></tr>
+          <tr><td>雙向連結</td><td>論文列出的概念，概念頁必須列回這篇論文</td><td><code>check.py</code> 檢查雙向一致與孤立頁</td></tr>
+          <tr><td>可追溯、不編造</td><td>每個結論有來源標記；原文沒寫就填「原文未說明」</td><td><code>check.py</code> 檢查來源標記與殘留 TODO</td></tr>
+          <tr><td>矛盾不被抹平</td><td>文獻說法衝突時兩邊保留並標出來源</td><td>Lint 時由 AI 回報</td></tr>
+          <tr><td>不上傳原文</td><td>PDF 與 <code>參考文獻/</code> 被 <code>.gitignore</code> 排除</td><td><code>check.py</code> 檢查 repo 沒有 PDF</td></tr>
+          <tr><td>留下紀錄</td><td>每次 ingest 都寫入 <code>log.md</code></td><td><code>check.py</code> 檢查格式與每篇論文的 ingest 紀錄</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="roles">分工：作者與 AI</h2>
+      <ul>
+        <li><strong>作者</strong>：挑選文獻、提供 PDF、提問、判斷研究方向、核對內容、決定哪些可以公開、把狀態改為「已確認」。</li>
+        <li><strong>AI</strong>：閱讀、摘要、交叉引用、歸檔、維持格式一致、標出矛盾與缺口、跑檢查、記錄 log。狀態只能標為「待讀」或「初整理」。</li>
+      </ul>
+      <div class="callout warn">
+        <p>目前所有頁面都是「初整理」：內容由 AI 依原文整理，作者仍在逐項核對。</p>
+      </div>
+    </article>
+  </main>
+
+  <script src="data/site.js"></script>
+  <script src="data/papers.js"></script>
+  <script src="data/concepts.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>

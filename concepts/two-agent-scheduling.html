@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>雙代理人排程｜我的論文文獻庫</title>
+  <meta name="description" content="兩個代理人各擁有一組工作與各自的目標函數，競爭同一組機器。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="concept" data-root="../" data-slug="two-agent-scheduling">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">概念 · Two-agent scheduling</p>
+        <h1>雙代理人排程</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="definition">定義</h2>
+      <p>傳統排程中所有工作追求同一個目標；多代理人排程則是工作來自不同客戶（代理人），各有自己的目標。Agnetis 等人與 Baker 和 Smith 是把多代理人問題帶入排程領域的先驅。<span class="src">Lee 等, §1, p. 1</span></p>
+      <p>雙代理人排程中，兩個代理人 AG1、AG2 各自擁有一組工作並有各自的目標函數，競爭同一台機器。常見的處理方式是最小化一個代理人的目標，同時對另一個代理人的目標加上限制，例如不得有延遲工作，或延遲工作數不超過上限。<span class="src">Lee 等, §1–2, p. 1–2</span></p>
+
+      <h2 id="variants">變體與記號</h2>
+      <table>
+        <thead><tr><th>變體</th><th>條件</th><th>出處</th></tr></thead>
+        <tbody>
+          <tr><td>Lee 等人的設定（本庫已讀）</td><td>單機；最小化 AG1 的 θT<sub>j</sub> + (1 − θ)C<sub>j</sub> 之總和，AG2 不得有延遲工作；記為 1 | Σ<sub>AG2</sub>U<sub>j</sub> = 0 | Σ<sub>AG1</sub>(θT<sub>j</sub> + (1 − θ)C<sub>j</sub>)</td><td><span class="src">§2, p. 2</span></td></tr>
+          <tr><td>以延遲工作數限制另一代理人</td><td>最小化 AG1 總完工時間，AG2 的延遲工作數不得超過某值（Ng 等人，引述）</td><td><span class="src">Lee 等, §1, p. 1</span> <span class="verify">引述，未讀原文</span></td></tr>
+          <tr><td>含釋放時間</td><td>最小化 AG1 總加權完工時間，AG2 的最大延遲 L<sub>max</sub> 不得超過限制（Cheng 等人，引述）</td><td><span class="src">Lee 等, §1, p. 2</span> <span class="verify">引述，未讀原文</span></td></tr>
+          <tr><td>多台相同平行機</td><td>把單機雙代理人問題推廣到多台相同平行機，亦討論釋放時間與可否中斷（Leung 等人，引述）</td><td><span class="src">Lee 等, §1, p. 2</span> <span class="verify">引述，未讀原文</span></td></tr>
+          <tr><td>同一代理人多個目標</td><td>Lee 等人指出這類問題在文獻中少見，本文處理的是 AG1 同時含總完工時間與總延遲</td><td><span class="src">Lee 等, §1, p. 2</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="literature">文獻怎麼說</h2>
+      <table>
+        <thead><tr><th>論文</th><th>對此概念的貢獻或結果</th><th>來源</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../papers/lee-2014-two-agent.html">Lee et al. (2014)</a></td><td>單機兩代理人：提出 branch-and-bound（含 dominance properties 與下界）與兩種 simulated annealing；B&amp;B 可解到 24 個工作，SA 在 n ≤ 24 時平均誤差低於 1%。</td><td><span class="src">§3–5, p. 2–8</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="disagreements">差異與矛盾</h2>
+      <p>目前未發現（本庫只有一篇雙代理人文獻）。</p>
+
+      <h2 id="open-questions">待解問題</h2>
+      <ul>
+        <li>整理者觀察：本庫 5 篇文獻中，沒有任何一篇同時涵蓋「平行機」「雙代理人」「資源限制」三個構面，雙代理人只出現在單機且無資源限制的 Lee 等人（2014）。</li>
+        <li>整理者觀察：Lee 等人在文中提到 Leung、Pinedo 與 Wan 已把雙代理人問題推廣到多台相同平行機（Operations Research 58(2), 458–469, 2010；原文參考文獻 [15]）。這篇本庫尚未收錄，可列為待找文獻。<span class="src">Lee 等, §1, p. 2; References [15]</span> <span class="verify">待確認</span></li>
+        <li>整理者觀察：本庫尚無文獻討論資源限制（如 <a href="relocation-problem.html">relocation problem</a>）與多代理人的結合。</li>
+      </ul>
+    </article>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cheng & Lin (2009)｜我的論文文獻庫</title>
+  <meta name="description" content="以 composite job 概念加速相關 flowshop 問題的求解，並用 relocation problem 直觀解釋 Johnson's rule。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="paper" data-root="../" data-slug="cheng-2009-johnson-composite">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">Cheng & Lin (2009)</p>
+        <h1>Johnson's rule, composite jobs and the relocation problem</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="summary">一句話摘要</h2>
+      <p>這是一篇 Short Communication。作者介紹由 Kurisu（1976）提出的 composite job 概念：用一個人工構造的工作取代一串工作，使第二台機器產生相同的閒置時間。他們說明這個概念能降低數個相關 flowshop 問題的計算時間，並建立 <a href="../concepts/johnsons-rule-flowshop.html">F2||C<sub>max</sub> 的 Johnson's rule</a> 與 Kaplan 提出的 <a href="../concepts/relocation-problem.html">relocation problem</a> 之間的連結，給出 Johnson's rule 在 relocation 情境下的直觀詮釋。<span class="src">Abstract, p. 1008</span></p>
+
+      <h2 id="problem">問題設定</h2>
+      <table>
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td>機台環境</td><td>兩機 flowshop（F2）；relocation 部分為單機資源限制排程。<span class="src">§1, p. 1008; §5, p. 1011</span></td></tr>
+          <tr><td>代理人</td><td>原文未涉及多代理人。</td></tr>
+          <tr><td>工作參數</td><td>Flowshop：工作 J<sub>i</sub> 在兩台機器的加工時間為 p<sub>i</sub>、q<sub>i</sub>。Relocation：所需資源 a<sub>i</sub>、歸還資源 b<sub>i</sub>。<span class="src">§1, p. 1008; §5, p. 1011</span></td></tr>
+          <tr><td>資源模型</td><td>單一種資源池，初始量 v<sub>0</sub>；工作取得並消耗 a<sub>i</sub> 單位，完成後歸還 b<sub>i</sub> 單位；目標是找出使可行序列存在的最小初始資源 v<sub>0</sub>。<span class="src">§5, p. 1011</span></td></tr>
+          <tr><td>目標函數</td><td>F2||C<sub>max</sub>（最小化 makespan）；relocation 則為最小初始資源。</td></tr>
+          <tr><td>記號</td><td>使用 Graham 三欄記號：F2||C<sub>max</sub>、F2|f|C<sub>max</sub>（部分工作不能排在第一位）、F2|l|C<sub>max</sub>（部分工作不能排在最後一位）、F2|f,l|C<sub>max</sub>。<span class="src">p. 1008, p. 1010</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="method">方法與演算法</h2>
+      <ul>
+        <li><strong>Johnson's rule</strong>：兩種常見形式。Form 2 先把工作分成 p<sub>i</sub> ≤ q<sub>i</sub> 與 p<sub>i</sub> &gt; q<sub>i</sub> 兩組，前者依 p<sub>i</sub> 非遞減、後者依 q<sub>i</sub> 非遞增排序後串接，時間複雜度為 O(n log n)。<span class="src">§1, p. 1009</span></li>
+        <li><strong>Composite job</strong>：對序列中的 J<sub>1</sub>、J<sub>2</sub>，令 p*<sub>1:2</sub> = p<sub>1</sub> + max{0, p<sub>2</sub> − q<sub>1</sub>}，q*<sub>1:2</sub> = max{0, q<sub>1</sub> − p<sub>2</sub>} + q<sub>2</sub>，並遞迴地定義 J*<sub>1:k</sub>。p*<sub>1:k</sub> 即該子序列在機台二產生的閒置時間總和。<span class="src">§2, p. 1009–1010</span></li>
+        <li><strong>建構成本</strong>：所有 J*<sub>1:k</sub>（或 J*<sub>k:n</sub>）可在 O(n) 時間建出；所有 J*<sub>i:j</sub> 需要 O(n<sup>2</sup>)。<span class="src">§2, p. 1010</span></li>
+        <li><strong>證明技巧</strong>：用 composite job 證明 Johnson's rule 對「不一定相鄰」的兩個工作交換仍成立。<span class="src">§3–4, p. 1010–1011</span></li>
+        <li><strong>Relocation 版本的 composite job</strong>：a*<sub>i:j</sub> = a*<sub>i:j−1</sub> + max{0, a<sub>j</sub> − b*<sub>i:j−1</sub>}，b*<sub>i:j</sub> = max{0, b*<sub>i:j−1</sub> − a<sub>j</sub>} + b<sub>j</sub>。<span class="src">§5, p. 1012</span></li>
+      </ul>
+
+      <h2 id="results">主要結果</h2>
+      <ul>
+        <li>F2||C<sub>max</sub> 的 makespan 等於機台二的加工時間總和加上機台二的閒置時間總和，因此最小化 makespan 等價於最小化機台二的閒置時間。<span class="src">§2, p. 1009</span></li>
+        <li>Birman 與 Mosheiov（2004）的兩機 flowshop due-date assignment 問題，原本的 O(n<sup>2</sup> log n) 演算法可降為 O(n log n)。<span class="src">§2, p. 1010</span></li>
+        <li>F2|f|C<sub>max</sub> 與 F2|l|C<sub>max</sub>（Saadani 等人給出 O(n<sup>2</sup>)）可在 O(n log n) 時間解決；F2|f,l|C<sub>max</sub> 由 O(n<sup>3</sup>) 降為 O(n<sup>2</sup>)。<span class="src">§2, p. 1010</span></li>
+        <li>Relocation problem 與 F2||C<sub>max</sub> 等價（Kaplan 與 Amir）：給定工作序列，機台二閒置時間總和等於使該序列可行所需的最小初始資源。<span class="src">§5, p. 1011</span></li>
+        <li>Johnson's rule 的 relocation 詮釋：先處理淨貢獻非負（b<sub>i</sub> ≥ a<sub>i</sub>）的工作並依 a<sub>i</sub> 非遞減排序，再處理淨貢獻為負的工作並依 b<sub>i</sub> 非遞增排序。<span class="src">§5, p. 1012</span></li>
+      </ul>
+
+      <h2 id="limitations">限制</h2>
+      <h3>作者自述</h3>
+      <ul>
+        <li>本文重點不在提出新模型或新演算法，而是介紹 composite job 概念及其應用。<span class="src">§1, p. 1008</span></li>
+        <li>作者指出為 relocation problem 加入時間參數（加工時間、釋放時間、到期日）是值得研究的方向，並表示涉及時間參數時往往出現理論上的挑戰。<span class="src">§6, p. 1012</span></li>
+      </ul>
+      <h3>整理者觀察</h3>
+      <ul>
+        <li>屬於短篇，沒有數值實驗；僅涵蓋單一代理人，沒有平行機。</li>
+      </ul>
+
+      <h2 id="relevance">與我研究的關聯</h2>
+      <ul>
+        <li>說明 relocation 的可行性測試（尋找最小初始資源）可轉為 flowshop 的閒置時間計算，是理解資源限制排程結構的基礎。</li>
+        <li>「先處理淨貢獻非負者」是 relocation 的基本結構；後續文獻（如 <a href="kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a>）加入平行機與時間參數後，問題就變成 NP-hard。</li>
+        <li>Composite job 是把一串工作視為單一工作來分析的工具，在設計 dominance property 時可借鏡。<span class="verify">待作者補充</span></li>
+      </ul>
+
+      <h2 id="notes">閱讀備註</h2>
+      <ul>
+        <li>線上發表日 2007-11-22，期刊卷期為 2009 年第 192 卷第 3 期，本站的年份以卷期年為準。原文為作者個人版，有轉載限制。</li>
+        <li><span class="verify">待確認</span> 原文參考文獻把 Kononov 與 Lin（2006）的出處寫成「Discrete Optimization 21, 368–381」，與實際的 3(4), 366–381 不一致，疑為筆誤。</li>
+        <li><span class="verify">待確認</span> 原文引用一篇 submitted 稿件「Resource-constrained scheduling to minimize weighted completion time on a single machine」，標題與 <a href="kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a> 的最終標題不同，是否為同一工作需要查證。</li>
+      </ul>
+    </article>
+
+    <nav class="paper-nav" data-paper-nav aria-label="上一篇與下一篇"></nav>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

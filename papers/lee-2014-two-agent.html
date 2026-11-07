@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lee et al. (2014)｜我的論文文獻庫</title>
+  <meta name="description" content="單機兩代理人：在代理人 2 不得有延遲工作的限制下，最小化代理人 1 的總完工時間與總延遲的加權組合。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="paper" data-root="../" data-slug="lee-2014-two-agent">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">Lee et al. (2014)</p>
+        <h1>Single-Machine Scheduling to Minimize Total Completion Time and Tardiness with Two Competing Agents</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="summary">一句話摘要</h2>
+      <p>本文研究單機的<a href="../concepts/two-agent-scheduling.html">雙代理人排程</a>：n 個工作分屬代理人 AG1 與 AG2，目標是在 AG2 不得有任何延遲工作的前提下，最小化 AG1 工作的總完工時間與總延遲的加權組合。作者提出含 dominance properties 與下界的 branch-and-bound，以及兩種 simulated annealing（SA1、SA2）<a href="../concepts/solution-methods.html">啟發式</a>；實驗顯示 branch-and-bound 可解到 24 個工作，SA 在小規模下誤差很小。<span class="src">Abstract, p. 1</span></p>
+
+      <h2 id="problem">問題設定</h2>
+      <table>
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td>機台環境</td><td>單機。<span class="src">§2, p. 2</span></td></tr>
+          <tr><td>代理人</td><td>兩個競爭的代理人 AG1 與 AG2；每個工作有代理人代碼 I<sub>j</sub>（1 或 2）。<span class="src">§2, p. 2</span></td></tr>
+          <tr><td>工作參數</td><td>加工時間 p<sub>j</sub>、到期日 d<sub>j</sub>、代理人代碼 I<sub>j</sub>。<span class="src">§2, p. 2</span></td></tr>
+          <tr><td>資源模型</td><td>無（原文未涉及資源限制）。</td></tr>
+          <tr><td>目標函數</td><td>最小化 AG1 工作的 θT<sub>j</sub> + (1 − θ)C<sub>j</sub> 之總和，0 ≤ θ ≤ 1，限制為 AG2 沒有延遲工作；其中 T<sub>j</sub> = max{0, C<sub>j</sub> − d<sub>j</sub>}，U<sub>j</sub> 表示工作是否延遲。<span class="src">§2, p. 2</span></td></tr>
+          <tr><td>記號</td><td>Graham 三欄記號：1 | Σ<sub>AG2</sub>U<sub>j</sub> = 0 | Σ<sub>AG1</sub>(θT<sub>j</sub> + (1 − θ)C<sub>j</sub>)。<span class="src">§2, p. 2</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="method">方法與演算法</h2>
+      <ul>
+        <li><strong>為何用 branch-and-bound</strong>：若沒有 AG2 的工作且 θ = 1，問題退化為單機總延遲問題，已被證明是 <a href="../concepts/np-hardness.html">NP-hard</a>（Du 與 Leung），因此作者選擇用 branch-and-bound 求最佳解。<span class="src">§3, p. 2</span></li>
+        <li><strong>Dominance properties</strong>：包含一個 nonadjacent 性質（Property 1）、多個相鄰兩工作交換的性質（Proposition 1–9），以及判斷部分序列是否可行（Property 2）與剩餘工作排序（Property 3）的性質。<span class="src">§3.1, p. 2–3</span></li>
+        <li><strong>下界</strong>：兩階段計算。Phase I 在不讓 AG2 延遲的前提下把 AG2 工作盡量排晚；Phase II 假設 AG1 的工作可以被切割，計算其完工時間下界，再組成目標函數的下界。<span class="src">§3.2, p. 3–4</span></li>
+        <li><strong>Simulated annealing</strong>：初始序列為 AG2 依 EDD、再接 AG1 依 SPT；鄰域產生法經前測比較後採用 pairwise interchange；SA1 對不可行的鄰域重新產生，SA2 則把 AG2 的違反量以懲罰項加進目標函數（懲罰係數經前測設為 1000）。<span class="src">§4, p. 4</span></li>
+        <li>迭代次數為 400n（n 為工作數）。<span class="src">§4, p. 4</span> <span class="verify">待確認</span></li>
+      </ul>
+
+      <h2 id="results">主要結果</h2>
+      <ul>
+        <li>Branch-and-bound 可在合理時間內解到 24 個工作；最耗時案例的平均執行時間約 47.37 秒（Fortran 90，Intel Core 2 Duo T7500 2.20 GHz）。<span class="src">§5, p. 7, Table 5</span></li>
+        <li>工作數增加時，branch-and-bound 的節點數與執行時間呈指數成長，與問題為 NP-hard 一致。<span class="src">§5, p. 7</span></li>
+        <li>變異數分析顯示參數 P 與到期日因子對 branch-and-bound 難度有顯著影響；θ 對難度沒有顯著影響（p 值 0.48）。<span class="src">§5, p. 5–6, Table 2, Table 4</span></li>
+        <li>n ≤ 24 時，兩種 SA 的平均誤差百分比在所有測試情境下都低於 1%。<span class="src">§5, p. 7, Table 5</span></li>
+        <li>n = 100、200 時，兩種 SA 都很快；以相對偏差（RDP）與取得最小值的次數來看，SA1 整體優於 SA2，作者建議工作數增加時採用 SA1。<span class="src">§5, p. 7–8, Table 6</span></li>
+      </ul>
+
+      <h2 id="limitations">限制</h2>
+      <h3>作者自述</h3>
+      <ul>
+        <li>原文結論沒有另列「限制」段落；作者在緒論指出，同一代理人具有多個目標的多代理人排程，在文獻中很少被討論，這是本文的切入點。<span class="src">§1, p. 2</span></li>
+      </ul>
+      <h3>整理者觀察</h3>
+      <ul>
+        <li>只有單機，且沒有資源限制；第二個代理人只以「不得有延遲工作」的硬性限制出現。</li>
+        <li>Branch-and-bound 的實驗規模到 24 個工作；SA 沒有最壞情況的保證，只有實驗誤差。</li>
+        <li>實驗資料為隨機生成，未見真實案例。</li>
+      </ul>
+
+      <h2 id="relevance">與我研究的關聯</h2>
+      <ul>
+        <li>提供雙代理人問題的具體建模方式：一個代理人最佳化目標，另一個代理人以約束形式處理（見 <a href="../concepts/two-agent-scheduling.html">雙代理人排程</a>）。</li>
+        <li>Dominance properties、下界與 SA 的 pairwise interchange 鄰域，可作為雙代理人排程求解方法的參考（見 <a href="../concepts/solution-methods.html">精確法與啟發式</a>）。</li>
+        <li>本篇沒有平行機與資源限制，對應研究另外兩個構面的文獻見 <a href="lin-2016-fixed-sequences.html">Lin et al. (2016)</a> 與 <a href="kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a>。<span class="verify">待作者補充</span></li>
+      </ul>
+
+      <h2 id="notes">閱讀備註</h2>
+      <ul>
+        <li>開放取用論文（Creative Commons Attribution License）。收稿 2013-11-25、接受 2013-12-12、發表 2014-01-19；卷期為 2014 年，文章編號 596306，共 9 頁。</li>
+        <li><span class="verify">待確認</span> 實驗段落對參數 P 的指涉前後敘述不一致：有處寫「第二代理人的工作比例」，有處寫「代理人 AG1 的工作比例」。</li>
+        <li><span class="verify">待確認</span> 內文說兩種 SA 的平均執行時間在所有案例都小於 1 秒，但 Table 6 的 n = 200 部分列的 CPU 時間數值大於 1。</li>
+        <li><span class="verify">待確認</span> 迭代次數「400n」的符號在文字抽取時受損，是依上下文判讀。</li>
+        <li>作者之一（Chung）的所屬機構與 <a href="kononov-2010-weighted-completion.html">Kononov & Lin</a> 系列作者（Lin）同為台灣交通大學，但兩條研究線在本庫目前沒有直接引用關係。</li>
+      </ul>
+    </article>
+
+    <nav class="paper-nav" data-paper-nav aria-label="上一篇與下一篇"></nav>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

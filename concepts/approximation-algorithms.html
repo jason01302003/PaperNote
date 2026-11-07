@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>近似演算法與近似比｜我的論文文獻庫</title>
+  <meta name="description" content="多項式時間演算法對任何實例保證解不超過最佳值的 ρ 倍，以及相關的不可近似性結果。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="concept" data-root="../" data-slug="approximation-algorithms">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">概念 · Approximation algorithms</p>
+        <h1>近似演算法與近似比</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="definition">定義</h2>
+      <p>對最小化問題，若多項式時間演算法 A 對任何實例 I 都輸出可行解，且其 makespan 至多為 ρ·OPT(I)，則稱 A 為 ρ-approximation 演算法。若存在常數 c，使輸出 makespan 至多為 ρ·OPT(I) + c，則稱為 asymptotic ρ-approximation。<span class="src">DO2006, §2, p. 368</span></p>
+      <p>與之相對的是不可近似性結果：除非 P = NP，否則不存在比某個 ρ 更好的近似演算法。這些結果和 <a href="np-hardness.html">NP-hardness</a> 一起描述問題的難度。<span class="src">DO2006, p. 369, Thm 3, p. 372</span></p>
+
+      <h2 id="variants">變體與記號</h2>
+      <table>
+        <thead><tr><th>變體</th><th>條件</th><th>出處</th></tr></thead>
+        <tbody>
+          <tr><td>ρ-approximation</td><td>對所有實例，解 ≤ ρ·OPT</td><td><span class="src">DO2006, §2, p. 368</span></td></tr>
+          <tr><td>asymptotic ρ-approximation</td><td>解 ≤ ρ·OPT + c，c 為常數</td><td><span class="src">DO2006, §2, p. 368</span></td></tr>
+          <tr><td>不可近似性</td><td>除非 P = NP，不存在 ρ 小於某值的演算法</td><td><span class="src">DO2006, p. 369; Thm 3, p. 372</span></td></tr>
+          <tr><td>近似比是緊的（tight）</td><td>存在實例使演算法與最佳值之比趨近該近似比</td><td><span class="src">DO2006, p. 379; KL2010, §3</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="literature">文獻怎麼說</h2>
+      <table>
+        <thead><tr><th>論文</th><th>對此概念的貢獻或結果</th><th>來源</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../papers/kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a></td><td>機台數無界：Rounding Algorithm 為 2-近似；m 台相同機：Splitting Algorithm 為 (3 − 2/m)-近似；兩者都給出緊例。不可近似性：零淨貢獻、UET 時 ρ &lt; 3/2；α<sub>i</sub> ≤ β<sub>i</sub>、UET 時漸近 ρ &lt; 4/3。</td><td><span class="src">Thm 4–5, p. 377–378; p. 379; p. 369; Thm 3, p. 372</span></td></tr>
+          <tr><td><a href="../papers/kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a></td><td>單機 UET 且淨貢獻非負的 ΣwC：Algorithm W 為 O(n<sup>2</sup>) 的 2-近似，並以實例說明比值趨近 2。</td><td><span class="src">Thm 4, §3</span></td></tr>
+          <tr><td><a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a></td><td>本文沒有近似演算法，但指出 ΣwT 與 ΣwU 這兩個 ordinary NP-hard 問題是否存在近似方案是值得研究的問題。</td><td><span class="src">§6, p. 162</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="disagreements">差異與矛盾</h2>
+      <ul>
+        <li>Kononov 與 Lin（2006）有兩個適用條件不同的下界：不放寬常數時為 3/2（零淨貢獻、機台無界、UET），漸近版本為 4/3（α<sub>i</sub> ≤ β<sub>i</sub>、機台無界、UET）。結論只寫「小於 4/3」，沒有區分是否為漸近，容易混淆。<span class="src">p. 369; Thm 3, p. 372; §6, p. 380</span> <span class="verify">待確認</span></li>
+        <li>其餘部分目前未發現文獻間的衝突。</li>
+      </ul>
+
+      <h2 id="open-questions">待解問題</h2>
+      <ul>
+        <li>作者自述：ΣwT 與 ΣwU 的近似性（如是否存在近似方案）。<span class="src">LHK2016, §6, p. 162</span></li>
+        <li>作者自述：RPWT 另外兩個特例以及一般形式的近似性與不可近似性。<span class="src">KL2010, §4</span></li>
+        <li>整理者觀察：無界機台情形下，近似比 2 與漸近不可近似下界 4/3 之間仍有差距，原文未討論能否縮小。</li>
+        <li>整理者觀察：本庫的近似結果都在單一代理人的 relocation 設定；雙代理人問題只有啟發式（<a href="two-agent-scheduling.html">見雙代理人排程</a>），沒有近似保證。</li>
+      </ul>
+    </article>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lin et al. (2016)｜我的論文文獻庫</title>
+  <meta name="description" content="兩台平行專用機、加工順序已固定的 relocation problem：針對六種目標函數給出複雜度分類與動態規劃演算法。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="paper" data-root="../" data-slug="lin-2016-fixed-sequences">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">Lin et al. (2016)</p>
+        <h1>Relocation scheduling subject to fixed processing sequences</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="summary">一句話摘要</h2>
+      <p>本文研究兩台<a href="../concepts/parallel-machines.html">平行專用機</a>、各機加工順序已固定的 <a href="../concepts/relocation-problem.html">relocation problem</a>：在資源限制下決定每個工作的開始時間，目標涵蓋六種 regular 目標函數。Makespan、總加權完工時間與最大延遲，可用 backward <a href="../concepts/solution-methods.html">動態規劃</a>在 O(n<sub>1</sub>n<sub>2</sub>(n<sub>1</sub> + n<sub>2</sub>)) 時間解決；總加權延遲與加權延遲工作數為 ordinary <a href="../concepts/np-hardness.html">NP-hard</a>（並有擬多項式 DP）；延遲工作數可在多項式時間解決。<span class="src">Abstract, p. 153</span></p>
+
+      <h2 id="problem">問題設定</h2>
+      <table>
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td>機台環境</td><td>兩台平行專用機 M<sub>1</sub>、M<sub>2</sub>（RPD<sub>2</sub>，一般形式 RPD<sub>m</sub>）；工作事先分成 m 個集合，各自只能在對應機台上處理，且各機的加工順序已固定。<span class="src">§2, p. 154–155</span></td></tr>
+          <tr><td>代理人</td><td>原文未涉及多代理人。</td></tr>
+          <tr><td>工作參數</td><td>加工時間 p<sub>k,h</sub>、權重 w<sub>k,h</sub>、到期日 d<sub>k,h</sub>、資源需求 α<sub>k,h</sub>、資源產出 β<sub>k,h</sub>；貢獻 δ<sub>k,h</sub> = β<sub>k,h</sub> − α<sub>k,h</sub> 可為任意符號。<span class="src">§2, p. 155</span></td></tr>
+          <tr><td>資源模型</td><td>單一種資源池，初始量 v<sub>0</sub>；工作開始時立即消耗 α，完成時立即歸還 β；任何時刻資源水位 v<sub>t</sub>(σ) ≥ 0。<span class="src">Eq. (1), p. 155</span></td></tr>
+          <tr><td>目標函數</td><td>六種 regular 目標：C<sub>max</sub>、Σw<sub>j</sub>C<sub>j</sub>、L<sub>max</sub>、Σw<sub>j</sub>T<sub>j</sub>、Σw<sub>j</sub>U<sub>j</sub>、ΣU<sub>j</sub>。<span class="src">§1, p. 154</span></td></tr>
+          <tr><td>記號</td><td>RPD<sub>m</sub> 代表 m 台專用機的 relocation problem；未使用 Graham 三欄記號。<span class="src">§1, p. 154</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="method">方法與演算法</h2>
+      <ul>
+        <li><strong>研究動機</strong>：把整個問題拆成「指派工作、決定順序、決定開始時間」三個階段，本文專攻最後一個階段；若固定順序的子問題可有效求解，就能作為搜尋法（如 branch-and-bound、元啟發式）評估序列的副程序。<span class="src">§1, p. 153–154</span></li>
+        <li><strong>Lemma 1</strong>：對任何 regular 目標，存在最佳排程使每個工作的開始時間為 0，或等於某台機器上另一工作的完工時間（semi-active 排程）。<span class="src">Lemma 1, p. 155</span></li>
+        <li><strong>Backward DP（BDP-1）</strong>：狀態 (i, j) 表示兩機剩餘子序列從 J<sub>1,i</sub>、J<sub>2,j</sub> 開始；每步在前面接上三種 schedule block 之一（只排 J<sub>1,i</sub>、只排 J<sub>2,j</sub>，或兩機重疊的 ij-head block）。C<sub>max</sub>、ΣwC、L<sub>max</sub> 的 lead time 具可加性，因此能用此遞迴。<span class="src">§3, p. 155–157</span></li>
+        <li><strong>硬度證明</strong>：從 Partition 規約，並加入一個「enforcer job」。<span class="src">Thm 2–3, p. 158–160</span></li>
+        <li><strong>BDP-2</strong>：在 BDP-1 加入 lead time 作為狀態，得到擬多項式演算法。<strong>FDP</strong>：forward DP，狀態含「遲到工作數的上限」，值為最小處理跨度。<span class="src">§4, p. 160–161; §5, p. 161</span></li>
+      </ul>
+
+      <h2 id="results">主要結果</h2>
+      <ul>
+        <li>C<sub>max</sub>、Σw<sub>j</sub>C<sub>j</sub>、L<sub>max</sub> 在固定順序的 RPD<sub>2</sub> 可於 O(n<sub>1</sub>n<sub>2</sub>(n<sub>1</sub> + n<sub>2</sub>)) 時間求解。<span class="src">Thm 1, p. 158</span></li>
+        <li>所有工作加工時間相同時，上述複雜度降為 O(n<sub>1</sub>n<sub>2</sub>)；推廣到 m 台機器為 O(2<sup>m</sup>∏n<sub>k</sub>)。<span class="src">p. 158</span></li>
+        <li>Σw<sub>j</sub>T<sub>j</sub> 為 ordinary NP-hard。<span class="src">Thm 2, p. 158</span></li>
+        <li>Σw<sub>j</sub>U<sub>j</sub> 為 ordinary NP-hard。<span class="src">Thm 3, p. 160</span></li>
+        <li>Σw<sub>j</sub>T<sub>j</sub> 與 Σw<sub>j</sub>U<sub>j</sub> 可用 BDP-2 在 O(n<sub>1</sub>n<sub>2</sub>(n<sub>1</sub> + n<sub>2</sub>)·min{p<sub>1,[1:n<sub>1</sub>]</sub>, p<sub>2,[1:n<sub>2</sub>]</sub>}) 的擬多項式時間求解；加工時間相同時為 O(n<sub>1</sub>n<sub>2</sub>min{n<sub>1</sub>, n<sub>2</sub>})。<span class="src">Thm 4, p. 161</span></li>
+        <li>ΣU<sub>j</sub>（延遲工作數）可在 O(n<sub>1</sub><sup>2</sup>n<sub>2</sub><sup>2</sup>(n<sub>1</sub> + n<sub>2</sub>)<sup>2</sup>) 時間求解。<span class="src">Thm 5, p. 162</span></li>
+        <li>所有工作加工時間相同時，六種目標函數皆可在多項式時間求解。<span class="src">§6, p. 162</span></li>
+        <li>背景結果：一般（未固定順序）兩台專用機的 makespan 與總完工時間最小化皆為 strongly NP-hard。<span class="src">§1, p. 154</span> <span class="verify">待確認</span></li>
+      </ul>
+
+      <h2 id="limitations">限制</h2>
+      <h3>作者自述</h3>
+      <ul>
+        <li>固定順序加專用機的設定在實際應用上較受限，但作者強調其演算法與複雜度結果有潛力用於一般的 <a href="../concepts/relocation-problem.html">relocation problem</a>。<span class="src">§6, p. 162</span></li>
+        <li>Σ T<sub>j</sub>（未加權總延遲）的複雜度仍是 open problem；固定順序使常見的 NP-hardness 證明技巧不易使用。<span class="src">§6, p. 162</span></li>
+        <li>Σw<sub>j</sub>T<sub>j</sub> 與 Σw<sub>j</sub>U<sub>j</sub> 是否存在<a href="../concepts/approximation-algorithms.html">近似方案</a>尚未知。<span class="src">§6, p. 162</span></li>
+      </ul>
+      <h3>整理者觀察</h3>
+      <ul>
+        <li>資源只有單一類型，且沒有代理人概念；全文為理論分析，未見數值實驗。</li>
+        <li>推廣到 m 台機器的演算法，只有在 m 為常數時才是多項式時間。</li>
+      </ul>
+
+      <h2 id="relevance">與我研究的關聯</h2>
+      <ul>
+        <li>這是「兩台平行機 + 資源限制」中，唯一把「時間決定」子問題做完整複雜度分類的文獻；若把指派與排序交給搜尋法，本文的 DP 可作為評估給定序列的子程序，作者在 §1 也是這樣定位。</li>
+        <li>與 <a href="lee-2014-two-agent.html">Lee et al. (2014)</a> 的方法可互補：後者以序列表示搭配 pairwise interchange 搜尋，本文提供在資源限制下評估一個序列的做法。（整理者推論）</li>
+        <li>本文沒有代理人；雙代理人的設定可參考 <a href="../concepts/two-agent-scheduling.html">雙代理人排程</a>。<span class="verify">待作者補充</span></li>
+      </ul>
+
+      <h2 id="notes">閱讀備註</h2>
+      <ul>
+        <li>Springer e-offprint，僅供個人使用，不得自行公開存放，因此本站只放整理與 DOI 連結。線上發表日 2015-09-28，期刊刊登於 2016 年 4 月。</li>
+        <li><span class="verify">待確認</span> 緒論（p. 154）把「一般兩台專用機的 strongly NP-hard」由 <a href="kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a> 與 <a href="kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a> 兩篇的結果推得，沒有獨立證明，建議回到原文核對。</li>
+        <li>緒論引用 Kaplan 與 Amir 的結果：決定使可行排程存在的最小初始資源，等價於兩機 flowshop 的 makespan 最小化（見 <a href="../concepts/johnsons-rule-flowshop.html">兩機 flowshop 與 Johnson's rule</a>）。<span class="src">§1, p. 153</span></li>
+        <li>本文引用的 Kononov & Lin (2010) 的完整出處為 Journal of Scheduling, 13(2), 123–129，本站據此補入該篇的卷期頁碼。</li>
+        <li>文字抽取時希臘字母受損，α、β、δ 的對應是依上下文判讀，建議對照原文確認。</li>
+      </ul>
+    </article>
+
+    <nav class="paper-nav" data-paper-nav aria-label="上一篇與下一篇"></nav>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

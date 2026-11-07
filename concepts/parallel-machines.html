@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平行機與專用機｜我的論文文獻庫</title>
+  <meta name="description" content="多台機器同時加工；區分工作可用任一台的相同機，與工作事先指定機台的專用機。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="concept" data-root="../" data-slug="parallel-machines">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">概念 · Parallel and dedicated machines</p>
+        <h1>平行機與專用機</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="definition">定義</h2>
+      <p>在 <a href="relocation-problem.html">relocation problem</a> 的脈絡中，多台機器對應多組施工團隊（crews）：只要有空閒團隊且資源足夠，數棟建築可以同時進行。<span class="src">DO2006, p. 366–367</span></p>
+      <p>本庫文獻區分兩種設定：<strong>相同平行機</strong>（identical parallel machines），每個工作可在任何一台機器上處理；<strong>專用機</strong>（dedicated machines），工作事先分成若干集合，每個工作必須在指定機台上處理。<span class="src">DO2006, p. 367, p. 369; LHK2016, §2, p. 154</span></p>
+
+      <h2 id="variants">變體與記號</h2>
+      <table>
+        <thead><tr><th>變體</th><th>條件</th><th>出處</th></tr></thead>
+        <tbody>
+          <tr><td>RP（相同平行機）</td><td>m 台相同機，最小化 makespan，結果以 UET 為主</td><td><span class="src">DO2006, p. 367</span></td></tr>
+          <tr><td>RPD、RPD<sub>2</sub><sup>+</sup>（專用機）</td><td>每個工作限定在指定機台；用於證明 NP-hardness</td><td><span class="src">DO2006, §3, p. 369</span></td></tr>
+          <tr><td>RPD<sub>m</sub>（固定順序專用機）</td><td>各機加工順序已固定，決定開始時間</td><td><span class="src">LHK2016, §2, p. 154–155</span></td></tr>
+          <tr><td>單機（單一團隊）</td><td>基本 relocation 的設定</td><td><span class="src">DO2006, p. 367</span></td></tr>
+          <tr><td>三階段決策</td><td>指派工作到機器 → 決定各機順序 → 決定開始時間；LHK2016 研究第三階段</td><td><span class="src">LHK2016, §1, p. 153–154</span></td></tr>
+        </tbody>
+      </table>
+      <p>縮寫：DO2006 = <a href="../papers/kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a>；LHK2016 = <a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a>。</p>
+
+      <h2 id="literature">文獻怎麼說</h2>
+      <table>
+        <thead><tr><th>論文</th><th>對此概念的貢獻或結果</th><th>來源</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../papers/kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a></td><td>先證專用機版本 strongly NP-hard，再轉換成兩台相同機，使困難度可以從專用機傳遞到相同機；並給出 m 台相同機的 (3 − 2/m)-近似。</td><td><span class="src">Thm 1–2, p. 369–372; Thm 5, p. 378</span></td></tr>
+          <tr><td><a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a></td><td>兩台專用機、順序固定：六種目標中四種多項式可解、兩種 ordinary NP-hard；推廣到 m 台時，演算法在 m 為常數下為多項式時間。</td><td><span class="src">Thm 1–5, p. 158–162; §6, p. 162</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="disagreements">差異與矛盾</h2>
+      <p>目前未發現。</p>
+
+      <h2 id="open-questions">待解問題</h2>
+      <ul>
+        <li>作者自述：以兩機 flowshop（而非平行機）建模的 relocation 有實務意義，值得研究。<span class="src">DO2006, §6, p. 380</span></li>
+        <li>作者自述：固定順序情形下，部分目標（如 ΣT<sub>j</sub>）的複雜度仍未知。<span class="src">LHK2016, §6, p. 162</span></li>
+        <li>整理者觀察：兩篇平行機文獻都是單一代理人；DO2006 只討論 makespan，LHK2016 雖含到期日類目標但順序已固定。本庫尚無文獻處理「平行機上、資源限制下的雙代理人排程」。</li>
+      </ul>
+    </article>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

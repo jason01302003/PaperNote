@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{LABEL}}｜我的論文文獻庫</title>
+  <meta name="description" content="{{SUMMARY}}">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="paper" data-root="../" data-slug="{{SLUG}}">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">{{LABEL}}</p>
+        <h1>{{TITLE}}</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="summary">一句話摘要</h2>
+      <p>TODO：2–4 句，說明這篇解決什麼問題、怎麼解、結論是什麼。</p>
+
+      <h2 id="problem">問題設定</h2>
+      <table>
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td>機台環境</td><td>TODO</td></tr>
+          <tr><td>代理人</td><td>TODO</td></tr>
+          <tr><td>工作參數</td><td>TODO</td></tr>
+          <tr><td>資源模型</td><td>TODO</td></tr>
+          <tr><td>目標函數</td><td>TODO</td></tr>
+          <tr><td>記號</td><td>TODO（原文未給就寫「原文未說明」）</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="method">方法與演算法</h2>
+      <p>TODO：演算法名稱、核心想法、時間複雜度。證明只寫用了什麼技巧。</p>
+
+      <h2 id="results">主要結果</h2>
+      <ul>
+        <li>TODO：結論一。<span class="src">p. ?, Thm ?</span></li>
+      </ul>
+
+      <h2 id="limitations">限制</h2>
+      <h3>作者自述</h3>
+      <ul>
+        <li>TODO<span class="src">p. ?</span></li>
+      </ul>
+      <h3>整理者觀察</h3>
+      <ul>
+        <li>TODO（以此標題明確標示這是整理者的判斷，不是原文）</li>
+      </ul>
+
+      <h2 id="relevance">與我研究的關聯</h2>
+      <p>TODO：只寫公開文獻層級的比較與可借用點，不寫未發表的研究內容。</p>
+
+      <h2 id="notes">閱讀備註</h2>
+      <ul>
+        <li>TODO：原文版本資訊、待確認事項、與其他篇的連結、與其他文獻的矛盾。</li>
+      </ul>
+    </article>
+
+    <nav class="paper-nav" data-paper-nav aria-label="上一篇與下一篇"></nav>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

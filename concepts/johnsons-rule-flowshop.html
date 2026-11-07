@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>兩機 flowshop 與 Johnson's rule｜我的論文文獻庫</title>
+  <meta name="description" content="F2||Cmax 的經典最佳排序規則，及其與單機 relocation problem 的等價關係。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="concept" data-root="../" data-slug="johnsons-rule-flowshop">
+  <main class="container" id="main">
+    <article>
+      <header class="page-head">
+        <p class="eyebrow">概念 · Two-machine flowshop and Johnson's rule</p>
+        <h1>兩機 flowshop 與 Johnson's rule</h1>
+      </header>
+
+      <dl class="bib" data-bib></dl>
+      <nav class="toc" data-toc aria-label="本頁目錄"></nav>
+
+      <h2 id="definition">定義</h2>
+      <p>兩機 flowshop（F2）有 n 個工作，每個工作包含兩個運算，必須依序在機台一、機台二處理，加工時間分別為 p<sub>i</sub>、q<sub>i</sub>；F2||C<sub>max</sub> 的目標是最小化 makespan。任何排程都可轉換成兩台機器工作順序相同的排程而不增加 makespan，因此只需考慮一個工作序列。<span class="src">CL2009, §1, p. 1008</span></p>
+      <p>Johnson's rule：若 min{p<sub>i</sub>, q<sub>j</sub>} ≤ min{q<sub>i</sub>, p<sub>j</sub>}，則 J<sub>i</sub> 應排在 J<sub>j</sub> 前面；依此規則可得 O(n log n) 的演算法。<span class="src">CL2009, §1, p. 1009</span> 序列的 makespan 等於機台二加工時間的總和加上機台二閒置時間的總和，所以最小化 makespan 等價於最小化機台二的閒置時間。<span class="src">CL2009, §2, p. 1009</span></p>
+      <p>與 <a href="relocation-problem.html">relocation problem</a> 的關係：令 α<sub>i</sub>、β<sub>i</sub> 對應工作在兩台機器的加工時間，則基本 relocation 的最小初始資源，等於機台二閒置時間的總和。<span class="src">DO2006, p. 367; CL2009, §5, p. 1011</span></p>
+
+      <h2 id="variants">變體與記號</h2>
+      <table>
+        <thead><tr><th>變體</th><th>條件</th><th>出處</th></tr></thead>
+        <tbody>
+          <tr><td>Johnson's rule Form 1</td><td>每次選最短的未排運算；屬機台一就排最前面空位，屬機台二就排最後面空位</td><td><span class="src">CL2009, §1, p. 1009</span></td></tr>
+          <tr><td>Johnson's rule Form 2</td><td>分成 p<sub>i</sub> ≤ q<sub>i</sub> 與 p<sub>i</sub> &gt; q<sub>i</sub> 兩組，前者依 p<sub>i</sub> 非遞減、後者依 q<sub>i</sub> 非遞增，串接</td><td><span class="src">CL2009, §1, p. 1009</span></td></tr>
+          <tr><td>Composite job</td><td>以人工工作取代一串工作，使機台二產生相同閒置時間（Kurisu, 1976）</td><td><span class="src">CL2009, §2, p. 1009–1010</span></td></tr>
+          <tr><td>F2|f|C<sub>max</sub>、F2|l|C<sub>max</sub>、F2|f,l|C<sub>max</sub></td><td>部分工作不得排在第一位（f）、最後一位（l），或兩者皆有</td><td><span class="src">CL2009, §2, p. 1010</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="literature">文獻怎麼說</h2>
+      <table>
+        <thead><tr><th>論文</th><th>對此概念的貢獻或結果</th><th>來源</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../papers/cheng-2009-johnson-composite.html">Cheng & Lin (2009)</a></td><td>核心文獻：以 composite job 把數個 flowshop 問題的時間複雜度降低，並給出 Johnson's rule 的 relocation 詮釋（先做淨貢獻非負者，再做淨貢獻為負者）。</td><td><span class="src">§2, p. 1010; §5, p. 1012</span></td></tr>
+          <tr><td><a href="../papers/kononov-2006-multiple-crews.html">Kononov & Lin (2006)</a></td><td>背景：單一團隊 relocation 與兩機 flowshop 的 makespan 問題等價，可行性可在 O(n log n) 檢驗。</td><td><span class="src">p. 367</span></td></tr>
+          <tr><td><a href="../papers/kononov-2010-weighted-completion.html">Kononov & Lin (2010)</a></td><td>背景：引用基本 relocation 與兩機 flowshop makespan 的等價結果。</td><td><span class="src">§1</span></td></tr>
+          <tr><td><a href="../papers/lin-2016-fixed-sequences.html">Lin et al. (2016)</a></td><td>背景：同樣引用此等價結果，說明決定最小初始資源與 flowshop makespan 的關係。</td><td><span class="src">§1, p. 153</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="disagreements">差異與矛盾</h2>
+      <p>目前未發現。</p>
+
+      <h2 id="open-questions">待解問題</h2>
+      <ul>
+        <li>作者自述：composite job 在排程上仍有相當大的應用空間。<span class="src">CL2009, §6, p. 1012</span></li>
+        <li>作者自述：「兩機 flowshop」型的 relocation 值得研究，第二台機器負責回收資源。<span class="src">DO2006, §6, p. 380</span></li>
+        <li>整理者觀察：本庫對這個概念只有 Cheng 與 Lin 一篇為主，其餘三篇只作為背景引用；沒有文獻處理雙代理人的 flowshop。</li>
+      </ul>
+    </article>
+  </main>
+
+  <script src="../data/site.js"></script>
+  <script src="../data/papers.js"></script>
+  <script src="../data/concepts.js"></script>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>
